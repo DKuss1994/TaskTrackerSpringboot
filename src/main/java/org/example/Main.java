@@ -1,5 +1,9 @@
 package org.example;
 
+import java.util.ArrayList;
+
+import static jdk.internal.org.jline.utils.Colors.s;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -9,6 +13,10 @@ public class Main {
         IO.println(String.format("Hello and welcome!"));
 
         for (int i = 1; i <= 5; i++) {
+            String hello = "hello";
+            ArrayList<String> x = new ArrayList<>();
+            x.add("hello");
+            
             //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
             // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
             IO.println("i = " + i);
