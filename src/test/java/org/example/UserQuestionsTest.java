@@ -14,17 +14,18 @@ public class UserQuestionsTest {
         String simultan = "add\n";
         Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
         UserQuestions userQuestions = new UserQuestions(fake);
-        Action result = userQuestions.userAction(fake);
+        UserQuestions.Action result = userQuestions.userAction(fake);
+        Assertions.assertEquals(UserQuestions.Action.ADD,result);
 
 
     }
     @Test
-    public void WrongThamADDTest() {
+    public void WrongThanADDTest() {
         String simultan = "wrong\nadd\n";
         Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
         UserQuestions userQuestions = new UserQuestions(fake);
-        Action result = userQuestions.userAction(fake);
-        Assertions.assertEquals(Action.ADD, result);
+        UserQuestions.Action result = userQuestions.userAction(fake);
+        Assertions.assertEquals(UserQuestions.Action.ADD, result);
 
     }
     @Test
@@ -32,8 +33,8 @@ public class UserQuestionsTest {
         String simultan = "add\nwrong\n";
         Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
         UserQuestions userQuestions = new UserQuestions(fake);
-        Action result = userQuestions.userAction(fake);
-        Assertions.assertEquals(Action.ADD, result);
+        UserQuestions.Action result = userQuestions.userAction(fake);
+        Assertions.assertEquals(UserQuestions.Action.ADD, result);
 
     }
     @Test
@@ -41,8 +42,8 @@ public class UserQuestionsTest {
         String simultan = "DeLeTe\n";
         Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
         UserQuestions userQuestions = new UserQuestions(fake);
-        Action result = userQuestions.userAction(fake);
-        Assertions.assertEquals(Action.DELETE, result);
+        UserQuestions.Action result = userQuestions.userAction(fake);
+        Assertions.assertEquals(UserQuestions.Action.DELETE, result);
 
     }
     @Test
@@ -50,8 +51,8 @@ public class UserQuestionsTest {
         String simultan = "seARch\n";
         Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
         UserQuestions userQuestions = new UserQuestions(fake);
-        Action result = userQuestions.userAction(fake);
-        Assertions.assertEquals(Action.SEARCH, result);
+        UserQuestions.Action result = userQuestions.userAction(fake);
+        Assertions.assertEquals(UserQuestions.Action.SEARCH, result);
 
     }
     @Test
@@ -59,8 +60,8 @@ public class UserQuestionsTest {
         String simultan = "change\n";
         Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
         UserQuestions userQuestions = new UserQuestions(fake);
-        Action result = userQuestions.userAction(fake);
-        Assertions.assertEquals(Action.CHANGE, result);
+        UserQuestions.Action result = userQuestions.userAction(fake);
+        Assertions.assertEquals(UserQuestions.Action.CHANGE, result);
 
     }
     @Test
@@ -68,8 +69,8 @@ public class UserQuestionsTest {
         String simultan = "exIt\n";
         Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
         UserQuestions userQuestions = new UserQuestions(fake);
-        Action result = userQuestions.userAction(fake);
-        Assertions.assertEquals(Action.EXIT, result);
+        UserQuestions.Action result = userQuestions.userAction(fake);
+        Assertions.assertEquals(UserQuestions.Action.EXIT, result);
 
     }
     @Test
@@ -77,8 +78,8 @@ public class UserQuestionsTest {
         String simultan = "INFO       \n";
         Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
         UserQuestions userQuestions = new UserQuestions(fake);
-        Action result = userQuestions.userAction(fake);
-        Assertions.assertEquals(Action.INFO, result);
+        UserQuestions.Action result = userQuestions.userAction(fake);
+        Assertions.assertEquals(UserQuestions.Action.INFO, result);
 
     }
     @Test
@@ -86,8 +87,8 @@ public class UserQuestionsTest {
         String simultan = "            show       \n";
         Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
         UserQuestions userQuestions = new UserQuestions(fake);
-        Action result = userQuestions.userAction(fake);
-        Assertions.assertEquals(Action.SHOW, result);
+        UserQuestions.Action result = userQuestions.userAction(fake);
+        Assertions.assertEquals(UserQuestions.Action.SHOW, result);
 
     }
     @Test
@@ -100,12 +101,30 @@ public class UserQuestionsTest {
 
     }
     @Test
-    public void userDescriptionTest2() {
+    public void userDescriptionTestMoreText() {
         String simultan = "Hello World!";
         Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
         UserQuestions userQuestions = new UserQuestions(fake);
         String result = userQuestions.userDescription();
         Assertions.assertEquals("Hello World!", result);
+
+    }
+    @Test
+    public void userDescriptionTestIsEmpty() {
+        String simultan = "\nHello";
+        Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
+        UserQuestions userQuestions = new UserQuestions(fake);
+        String result = userQuestions.userDescription();
+        Assertions.assertEquals("Hello", result);
+
+    }
+    @Test
+    public void userDescriptionTestSpaceIsEmpty() {
+        String simultan = "          \nHello";
+        Scanner fake = new Scanner(new ByteArrayInputStream(simultan.getBytes()));
+        UserQuestions userQuestions = new UserQuestions(fake);
+        String result = userQuestions.userDescription();
+        Assertions.assertEquals("Hello", result);
 
     }
 
