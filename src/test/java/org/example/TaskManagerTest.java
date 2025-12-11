@@ -70,6 +70,12 @@ public class TaskManagerTest {
 
 
     }
+    @Test
+    void deletTest(){
+        taskManager.add("hello");
+        taskManager.delete(1);
+        Assertions.assertNull(taskManager.getTaskMap().get(1));
+    }
 
 }
 

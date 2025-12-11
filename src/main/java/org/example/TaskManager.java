@@ -19,6 +19,7 @@ public class TaskManager extends Enum {
     }
 
     public void delete(int key) {
+        taskMap.remove(key);
 
     }
 }
