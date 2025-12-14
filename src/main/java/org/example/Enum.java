@@ -1,7 +1,7 @@
 package org.example;
 
 public class Enum {
-    enum Status {
+    public enum Status {
         DONE,
         TODO,
         PROGRESS
@@ -10,7 +10,7 @@ public class Enum {
 
 
 
-    enum Action {
+    public enum Action {
         ADD,
         DELETE,
         SEARCH,
@@ -21,7 +21,7 @@ public class Enum {
 
     }
 
-    enum YesorNo {
+    public enum YesorNo {
         YES,
         NO
     }

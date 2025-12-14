@@ -10,54 +10,71 @@ public class SystemManager {
 
     public void start() {
         while (loop) {
-
-
             Enum.Action action = userQuestions.userAction();
-            switch (action) {
-                case ADD -> extractedAddUserDescription();
-                case DELETE -> extractedDeleteUserKey();
-                case SHOW -> extractedShow();
-                case EXIT -> exit();
+            if (action == Enum.Action.ADD) {
+                extractedAddUserDescription();
+            } else if (action == Enum.Action.DELETE) {
+                extractedDeleteUserKey();
+
+            } else if (action == Enum.Action.CHANGE) {
+                extractedChangeUserDescription();
+
+            } else if (action == Enum.Action.EXIT) {
+                exit();
+            } else if (action == Enum.Action.SHOW) {
+                extractedShow();
+
+            } else {
+                System.out.println("Someone go wrong!");
             }
-
-/*
-
-            //Json Safe.
-        }*/
         }
+
     }
-    public void exit(){
+
+public void extractedChangeUserDescription(){
+    int key = userQuestions.userKeyChange();
+    System.out.println(taskManager.getTaskMap().get(key).getPrintout());
+    System.out.println("What would you change? ");
+        String description = userQuestions.userDescription();
+        try {
+            taskManager.changeTask(key,description);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+}
+    public void exit() {
         this.loop = false;
     }
-private  void extractedShow(){
+
+    private void extractedShow() {
         try {
             taskManager.showTasks();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-}
-        private void extractedAddUserDescription () {
-            try {
-                String description = userQuestions.userDescription();
-                taskManager.add(description);
-                System.out.println("Task successfully added");
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+    }
 
-        private void extractedDeleteUserKey () {
-            try {
-                taskManager.showTasks();
-                int keyNumber = userQuestions.userKeyDelete();
-                taskManager.delete(keyNumber);
-                System.out.println("Key: " + keyNumber + " successful delete.");
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
+    private void extractedAddUserDescription() {
 
-            }
-
-
-            System.out.println("Number not found. Try again.");
+String description = userQuestions.userDescription();
+        try {
+            taskManager.add(description);
+            System.out.println("Task successfully added");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
         }
     }
+
+    private void extractedDeleteUserKey() {
+        try {
+            taskManager.showTasks();
+            int keyNumber = userQuestions.userKeyDelete();
+            taskManager.delete(keyNumber);
+            System.out.println("Key: " + keyNumber + " successful delete.");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Number not found. Try again.");
+    }
+}

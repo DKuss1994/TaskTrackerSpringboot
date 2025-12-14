@@ -84,23 +84,5 @@ public class TaskManagerTest {
         taskManager.delete(1);
         Assertions.assertNull(taskManager.getTaskMap().get(1));
     }
-    @Test
-    void deleteTrueTest(){
-        taskManager.add("hello");
-        taskManager.add("hello2");
-        taskManager.add("hello3");
-        boolean test = taskManager.delete(1);
-        Assertions.assertTrue(test);
-    }
-    @Test
-    void deleteFalseTest(){
-        taskManager.add("hello");
-        taskManager.add("hello2");
-        taskManager.add("hello3");
-        boolean test = taskManager.delete(1);
-        boolean test2 = taskManager.delete(1);
-        Assertions.assertFalse(test2);
-    }
-
 }
 

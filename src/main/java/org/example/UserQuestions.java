@@ -10,6 +10,7 @@ public class UserQuestions {
     private final Scanner sc;
     TaskManager taskManager = new TaskManager();
 
+
     public UserQuestions(Scanner sc) {
         this.sc = sc;
     }
@@ -17,7 +18,7 @@ public class UserQuestions {
     public Enum.Action userAction() {
         while (true) {
             System.out.print("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
-            String input = sc.next().trim().toUpperCase();
+            String input = sc.nextLine().trim().toUpperCase();
             try {
                 return Enum.Action.valueOf(input);
             } catch (IllegalArgumentException e) {
@@ -29,7 +30,7 @@ public class UserQuestions {
     public Enum.Action userAction(Scanner sc) {
         while (true) {
             System.out.print("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
-            String input = sc.next().trim().toUpperCase();
+            String input = sc.nextLine().trim().toUpperCase();
             try {
                 return Enum.Action.valueOf(input);
             } catch (IllegalArgumentException e) {
@@ -40,19 +41,19 @@ public class UserQuestions {
 
 
     public String userDescription(Scanner sc) {
-        System.out.print("Description about it. ");
+        System.out.println("Description about it. ");
         return sc.nextLine().trim();
     }
 
     public String userDescription() {
-        System.out.print("Description about it. ");
+        System.out.println("Description about it. ");
         return sc.nextLine().trim();
     }
 
     public Enum.Status userStatusDescription(Scanner sc) {
         while (true) {
             System.out.print("Description about Status.(DONE,PROGRESS,TODO) ");
-            String input = sc.next().trim().toUpperCase();
+            String input = sc.nextLine().trim().toUpperCase();
             try {
                 return Enum.Status.valueOf(input);
             } catch (IllegalArgumentException e) {
@@ -64,7 +65,7 @@ public class UserQuestions {
     public Enum.Status userStatusDescription() {
         while (true) {
             System.out.print("Description about Status.(DONE,PROGRESS,TODO) ");
-            String input = sc.next().trim().toUpperCase();
+            String input = sc.nextLine().trim().toUpperCase();
             try {
                 return Enum.Status.valueOf(input);
             } catch (IllegalArgumentException e) {
@@ -74,6 +75,23 @@ public class UserQuestions {
     }
 
     public int userKeyDelete(Scanner sc) {
+        while (true) {
+            System.out.println("Take someone of the key number too delete the task ");
+            int input = Integer.parseInt(sc.nextLine().trim());
+            try {
+                if (input < 0) {
+                    System.out.println("Number are negativ.");
+                } else {
+                    return input;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number.");
+            }
+        }
+    }
+
+
+    public int userKeyDelete() {
         while (true) {
             System.out.println("Take someone of the key number too delete the task ");
             int input = sc.nextInt();
@@ -90,20 +108,37 @@ public class UserQuestions {
     }
 
 
-    public int userKeyDelete() {
+    public int userKeyChange(Scanner sc) {
         while (true) {
-            System.out.println(taskManager.getTaskMap().keySet());
-            System.out.println("Take someone of the key number too delete the task ");
+            System.out.println("Take someone of the key number too change the task. ");
             int input = sc.nextInt();
             try {
-                if (taskManager.getTaskMap().containsKey(input)) {
-                    return input;
+                if (input < 0) {
+                    System.out.println("Number are negativ.");
                 } else {
-                    System.out.println("Number not found. Try again.");
+                    return input;
                 }
-            } catch (IllegalArgumentException e) {
-                System.out.println("Illegal input.");
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number.");
             }
         }
     }
+
+
+    public int userKeyChange() {
+        while (true) {
+            System.out.println("Take someone of the key number too change the task. ");
+            int input = sc.nextInt();
+            try {
+                if (input < 0) {
+                    System.out.println("Number are negativ.");
+                } else {
+                    return input;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number.");
+            }
+        }
+    }
+
 }

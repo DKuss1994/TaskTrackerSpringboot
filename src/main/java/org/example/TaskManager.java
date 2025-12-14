@@ -1,6 +1,4 @@
 package org.example;
-
-import java.util.ArrayList;
 import java.util.TreeMap;
 
 public class TaskManager {
@@ -14,11 +12,14 @@ public class TaskManager {
 
     public void add(String description) {
         if (description == null || description.isBlank()) {
-            throw new IllegalArgumentException("Description invalid");
+            throw new IllegalArgumentException("Description invalid.");
         }
         Task task = new Task(description);
+        task.setTime();
+        task.setUpdate();
         id++;
         taskMap.put(id, task);
+
     }
 
     public void delete(int key) {
@@ -39,6 +40,20 @@ public void showTasks() {
         }
     }
 }
+public void changeTask(int key,String description) {
+    if (taskMap.isEmpty()) {
+        throw new IllegalArgumentException("Not task found! Pls add Task.");
+
+    } else if (taskMap.containsKey(key)) {
+        Task task = new Task(description);
+        task.setUpdate();
+        taskMap.replace(key,task);
+
+
+    } else {
+        throw new IllegalArgumentException("Key not found!");
+    }
+}
 }
 
 /*
@@ -49,10 +64,8 @@ status: Der Status der Aufgabe (todo, in-progress, done)
 createdAt: Datum und Uhrzeit, zu der die Aufgabe erstellt wurde
 
 updatedAt: Datum und Uhrzeit, zu der die Aufgabe zuletzt aktualisiert wurde
- ADD,
-        DELETE,
+
         SEARCH,
         CHANGE,
-        EXIT,
         INFO,
         SHOW*/
