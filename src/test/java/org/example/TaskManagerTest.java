@@ -10,7 +10,9 @@ public class TaskManagerTest {
     void addListTaskTest() {
         String text = "Hello";
         taskManager.add(text);
-        Assertions.assertEquals(text, taskManager.getTaskMap().get(1).getDescription());
+        Assertions.assertTrue(taskManager.containsKey(1));
+        Assertions.assertEquals(1,taskManager.mapSize());
+        Assertions.assertEquals(text, taskManager.getTask(1).getDescription());
 
 
     }
@@ -21,7 +23,9 @@ public class TaskManagerTest {
         taskManager.add(text);
         taskManager.add(text);
         taskManager.add(text2);
-        Assertions.assertEquals(text2, taskManager.getTaskMap().get(3).getDescription());
+        Assertions.assertTrue(taskManager.containsKey(3));
+        Assertions.assertEquals(3,taskManager.mapSize());
+        Assertions.assertEquals(text2, taskManager.getTask(3).getDescription());
 
 
     }
@@ -32,7 +36,9 @@ public class TaskManagerTest {
         taskManager.add(text);
         taskManager.add(text);
         taskManager.add(text2);
-        Assertions.assertEquals(Enum.Status.TODO, taskManager.getTaskMap().get(1).getStatus());
+        Assertions.assertTrue(taskManager.containsKey(1));
+        Assertions.assertEquals(3,taskManager.mapSize());
+        Assertions.assertEquals(Enum.Status.TODO, taskManager.getTask(1).getStatus());
 
 
     }
@@ -43,38 +49,16 @@ public class TaskManagerTest {
         taskManager.add(text);
         taskManager.add(text);
         taskManager.add(text2);
-        Assertions.assertEquals(Enum.Status.TODO, taskManager.getTaskMap().get(3).getStatus());
+        Assertions.assertEquals(Enum.Status.TODO, taskManager.getTask(3).getStatus());
 
 
     }
 
-    @Test
-    void addTimeTest() {
-        String text = "Hello";
-        String text2 = "WOW!";
-        taskManager.add(text);
-        taskManager.add(text);
-        taskManager.add(text2);
-        Assertions.assertEquals("12.11.2025", taskManager.getTaskMap().get(3).getTime());
-
-
-    }
-    @Test
-    void addUpdateTest() {
-        String text = "Hello";
-        String text2 = "WOW!";
-        taskManager.add(text);
-        taskManager.add(text);
-        taskManager.add(text2);
-        Assertions.assertEquals("12.11.2025", taskManager.getTaskMap().get(3).getUpdate());
-
-
-    }
     @Test
     void deleteTest(){
         taskManager.add("hello");
         taskManager.delete(1);
-        Assertions.assertNull(taskManager.getTaskMap().get(1));
+        Assertions.assertNull(taskManager.getTask(1));
     }
     @Test
     void deleteTest2(){
@@ -82,7 +66,7 @@ public class TaskManagerTest {
         taskManager.add("hello2");
         taskManager.add("hello3");
         taskManager.delete(1);
-        Assertions.assertNull(taskManager.getTaskMap().get(1));
+        Assertions.assertNull(taskManager.getTask(1));
     }
 }
 

@@ -7,8 +7,17 @@ public class TaskManager {
     private int id = 0;
 
 
-    TreeMap<Integer, Task> getTaskMap() {
+    private TreeMap<Integer, Task> getTaskMap() {
         return taskMap;
+    }
+    public int mapSize(){
+        return taskMap.size();
+    }
+    public Task getTask(int key){
+        return taskMap.get(key);
+    }
+    public boolean containsKey (int key){
+        return taskMap.containsKey(key);
     }
 
     public void add(String description) {
