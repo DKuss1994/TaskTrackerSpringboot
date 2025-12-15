@@ -7,11 +7,8 @@ public class TaskManager {
     private TreeMap<Integer, Task> taskMap = new TreeMap<>();
     private int id = 0;
 
-    public Map<Integer, Task> getAllTask(){
-        if(taskMap.isEmpty()){
-            throw new IllegalArgumentException("No task available.");
-        }
-        return Map.copyOf(taskMap);
+    public Map<Integer,Task> getMap(){
+        return this.taskMap;
     }
     public int mapSize(){
         return taskMap.size();
@@ -62,14 +59,14 @@ public class TaskManager {
 
     }
     public void setTaskMap(Map<Integer, Task> map) {
-        taskMap = (TreeMap<Integer, Task>) map;
+        taskMap = new TreeMap<>(map);
 
         int maxId = 0;
-        for (int id : map.keySet()) {
+        for (int id : taskMap.keySet()) {
             if (id > maxId) {
                 maxId = id;
             }
         }
-        this.id = maxId + 1;
+        this.id = maxId;
     }
 }

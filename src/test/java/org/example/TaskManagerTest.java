@@ -95,7 +95,7 @@ public class TaskManagerTest {
 
         taskManager.add("A");
         taskManager.add("B");
-        Map<Integer, Task> allTask = taskManager.getAllTask();
+        Map<Integer, Task> allTask = taskManager.getMap();
         Assertions.assertEquals(2, allTask.size());
     }
 

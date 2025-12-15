@@ -60,7 +60,7 @@ public class SystemManager {
     }
 
     private void showTasks() {
-        Map<Integer, Task> allTask = taskManager.getAllTask();
+        Map<Integer, Task> allTask = taskManager.getMap();
         if (allTask.isEmpty()) {
             throw new IllegalArgumentException("Not task found! Pls add Task.");
         } else {
@@ -86,7 +86,7 @@ public class SystemManager {
     }
 
     private void showTODO() {
-        Map<Integer, Task> allTask = taskManager.getAllTask();
+        Map<Integer, Task> allTask = taskManager.getMap();
         if (allTask.isEmpty()) {
             throw new IllegalArgumentException("Not task found! Pls add Task.");
         } else {
@@ -100,7 +100,7 @@ public class SystemManager {
     }
 
     private void showDONE() {
-        Map<Integer, Task> allTask = taskManager.getAllTask();
+        Map<Integer, Task> allTask = taskManager.getMap();
         if (allTask.isEmpty()) {
             throw new IllegalArgumentException("Not task found! Pls add Task.");
         } else {
@@ -114,7 +114,7 @@ public class SystemManager {
     }
 
     private void showPROGRESS() {
-        Map<Integer, Task> allTask = taskManager.getAllTask();
+        Map<Integer, Task> allTask = taskManager.getMap();
         if (allTask.isEmpty()) {
             throw new IllegalArgumentException("Not task found! Pls add Task.");
         } else {
@@ -181,7 +181,7 @@ public class SystemManager {
         JSONObject root = new JSONObject();
 
         try {
-            for (Map.Entry<Integer, Task> entry : taskManager.getAllTask().entrySet()) {
+            for (Map.Entry<Integer, Task> entry : taskManager.getMap().entrySet()) {
                 root.put(
                         String.valueOf(entry.getKey()),
                         entry.getValue().toJson()
