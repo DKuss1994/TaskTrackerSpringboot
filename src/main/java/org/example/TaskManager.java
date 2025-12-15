@@ -1,10 +1,18 @@
 package org.example;
 
+import java.util.Map;
 import java.util.TreeMap;
 
 public class TaskManager {
     private final TreeMap<Integer, Task> taskMap = new TreeMap<>();
     private int id = 0;
+
+    public Map<Integer, Task> getAllTask(){
+        if(taskMap.isEmpty()){
+            throw new IllegalArgumentException("No task available.");
+        }
+        return Map.copyOf(taskMap);
+    }
     public int mapSize(){
         return taskMap.size();
     }
@@ -35,16 +43,6 @@ public class TaskManager {
         }
     }
 
-
-    public void showTasks() {
-        if (taskMap.isEmpty()) {
-            throw new IllegalArgumentException("Not task found! Pls add Task.");
-        } else {
-            for (int key : taskMap.keySet()) {
-                System.out.println("Key: " + key + " Task: " + taskMap.get(key).getPrintout());
-            }
-        }
-    }
 
     public void changeTask(int key, String description) {
         Task task = taskMap.get(key);

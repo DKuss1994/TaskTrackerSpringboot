@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -42,9 +43,9 @@ public class SystemManager {
     }
 
 
-    private void extractedChangeStatus(int key){
+    private void extractedChangeStatus(int key) {
         Enum.Status status = userQuestions.userStatusDescription("Description about Status.(DONE,PROGRESS,TODO) ");
-        taskManager.changeStatus(key,status);
+        taskManager.changeStatus(key, status);
 
     }
 
@@ -52,14 +53,72 @@ public class SystemManager {
         this.loop = false;
     }
 
+    private void showTasks() {
+        Map<Integer, Task> allTask = taskManager.getAllTask();
+        if (allTask.isEmpty()) {
+            throw new IllegalArgumentException("Not task found! Pls add Task.");
+        } else {
+            for (int key : allTask.keySet()) {
+                System.out.println("Key: " + key + " Task: " + allTask.get(key).getPrintout());
+            }
+        }
+    }
+
     private void extractedShow() {
         try {
-            userQuestions.userStatusDescription("What do u want see? Status: (DONE,PROGRESS,TODO) or (ALL) ");
+            Enum.Status status = userQuestions.userStatusDescription("What do u want see? Status: (DONE,PROGRESS,TODO) or (ALL) ");
+            switch (status) {
+                case ALL -> showTasks();
+                case TODO -> showTODO();
+                case DONE -> showDONE();
+                case PROGRESS -> showPROGRESS();
+            }
 
-            taskManager.showTasks();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private void showTODO() {
+        Map<Integer, Task> allTask = taskManager.getAllTask();
+        if (allTask.isEmpty()) {
+            throw new IllegalArgumentException("Not task found! Pls add Task.");
+        } else {
+            for (int key : allTask.keySet()) {
+                if (taskManager.getTask(key).getStatus() == Enum.Status.TODO) {
+                    System.out.println("Key: " + key + " Task: " + allTask.get(key).getPrintout());
+                }
+            }
+        }
+
+    }
+
+    private void showDONE() {
+        Map<Integer, Task> allTask = taskManager.getAllTask();
+        if (allTask.isEmpty()) {
+            throw new IllegalArgumentException("Not task found! Pls add Task.");
+        } else {
+            for (int key : allTask.keySet()) {
+                if (taskManager.getTask(key).getStatus() == Enum.Status.DONE) {
+                    System.out.println("Key: " + key + " Task: " + allTask.get(key).getPrintout());
+                }
+            }
+        }
+
+    }
+
+    private void showPROGRESS() {
+        Map<Integer, Task> allTask = taskManager.getAllTask();
+        if (allTask.isEmpty()) {
+            throw new IllegalArgumentException("Not task found! Pls add Task.");
+        } else {
+            for (int key : allTask.keySet()) {
+                if (taskManager.getTask(key).getStatus() == Enum.Status.PROGRESS) {
+                    System.out.println("Key: " + key + " Task: " + allTask.get(key).getPrintout());
+                }
+            }
+        }
+
     }
 
     private void extractedAddUserDescription() {
@@ -75,7 +134,7 @@ public class SystemManager {
 
     private void extractedDeleteUserKey() {
         try {
-            taskManager.showTasks();
+            showTasks();
             int keyNumber = userQuestions.userKey("Take someone of the key number too delete the task ");
             taskManager.delete(keyNumber);
             System.out.println("Key: " + keyNumber + " successful delete.");
