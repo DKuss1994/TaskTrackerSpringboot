@@ -13,16 +13,13 @@ public class Enum {
     public enum Action {
         ADD,
         DELETE,
-        SEARCH,
         CHANGE,
         EXIT,
-        SHOW
-
-
-    }
-
-    public enum YesorNo {
+        SHOW,
         YES,
-        NO
+        NO,
+        ALL
+
+
     }
 }

@@ -2,8 +2,6 @@ package org.example;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayInputStream;
 import java.util.Scanner;
 
 
@@ -14,7 +12,7 @@ public class UserQuestionsTest {
         String simultan = "add\n";
         Scanner fake = new Scanner(simultan);
         UserQuestions userQuestions = new UserQuestions(fake);
-        Enum.Action result = userQuestions.userAction();
+        Enum.Action result = userQuestions.userAction("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
         Assertions.assertEquals(Enum.Action.ADD, result);
 
 
@@ -25,7 +23,7 @@ public class UserQuestionsTest {
         String simultan = "wrong\nadd\n";
         Scanner fake = new Scanner(simultan);
         UserQuestions userQuestions = new UserQuestions(fake);
-        Enum.Action result = userQuestions.userAction();
+        Enum.Action result = userQuestions.userAction("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
         Assertions.assertEquals(Enum.Action.ADD, result);
 
     }
@@ -35,7 +33,7 @@ public class UserQuestionsTest {
         String simultan = "add\nwrong\n";
         Scanner fake = new Scanner(simultan);
         UserQuestions userQuestions = new UserQuestions(fake);
-        Enum.Action result = userQuestions.userAction();
+        Enum.Action result = userQuestions.userAction("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
         Assertions.assertEquals(Enum.Action.ADD, result);
 
     }
@@ -45,27 +43,18 @@ public class UserQuestionsTest {
         String simultan = "DeLeTe\n";
         Scanner fake = new Scanner(simultan);
         UserQuestions userQuestions = new UserQuestions(fake);
-        Enum.Action result = userQuestions.userAction();
+        Enum.Action result = userQuestions.userAction("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
         Assertions.assertEquals(Enum.Action.DELETE, result);
 
     }
 
-    @Test
-    public void SearchTest() {
-        String simultan = "seARch\n";
-        Scanner fake = new Scanner(simultan);
-        UserQuestions userQuestions = new UserQuestions(fake);
-        Enum.Action result = userQuestions.userAction();
-        Assertions.assertEquals(Enum.Action.SEARCH, result);
-
-    }
 
     @Test
     public void ChangeTest() {
         String simultan = "change\n";
         Scanner fake = new Scanner(simultan);
         UserQuestions userQuestions = new UserQuestions(fake);
-        Enum.Action result = userQuestions.userAction();
+        Enum.Action result = userQuestions.userAction("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
         Assertions.assertEquals(Enum.Action.CHANGE, result);
 
     }
@@ -75,7 +64,7 @@ public class UserQuestionsTest {
         String simultan = "exIt\n";
         Scanner fake = new Scanner(simultan);
         UserQuestions userQuestions = new UserQuestions(fake);
-        Enum.Action result = userQuestions.userAction();
+        Enum.Action result = userQuestions.userAction("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
         Assertions.assertEquals(Enum.Action.EXIT, result);
 
     }
@@ -85,7 +74,7 @@ public class UserQuestionsTest {
         String simultan = "            show       \n";
         Scanner fake = new Scanner(simultan);
         UserQuestions userQuestions = new UserQuestions(fake);
-        Enum.Action result = userQuestions.userAction();
+        Enum.Action result = userQuestions.userAction("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
         Assertions.assertEquals(Enum.Action.SHOW, result);
 
     }

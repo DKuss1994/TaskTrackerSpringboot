@@ -12,9 +12,9 @@ public class UserQuestions {
         this.sc = sc;
     }
 
-    public Enum.Action userAction() {
+    public Enum.Action userAction(String text) {
         while (true) {
-            System.out.print("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
+            System.out.print(text);
             String input = sc.nextLine().trim().toUpperCase();
             try {
                 return Enum.Action.valueOf(input);

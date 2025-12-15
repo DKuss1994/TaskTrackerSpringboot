@@ -10,7 +10,7 @@ public class SystemManager {
 
     public void start() {
         while (loop) {
-            Enum.Action action = userQuestions.userAction();
+            Enum.Action action = userQuestions.userAction("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
             if (action == Enum.Action.ADD) {
                 extractedAddUserDescription();
             } else if (action == Enum.Action.DELETE) {
