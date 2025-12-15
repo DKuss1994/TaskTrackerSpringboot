@@ -1,5 +1,6 @@
 package org.example;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class SystemManager {
@@ -11,37 +12,40 @@ public class SystemManager {
     public void start() {
         while (loop) {
             Enum.Action action = userQuestions.userAction("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
-            if (action == Enum.Action.ADD) {
-                extractedAddUserDescription();
-            } else if (action == Enum.Action.DELETE) {
-                extractedDeleteUserKey();
+            switch (action) {
+                case ADD -> extractedAddUserDescription();
+                case CHANGE -> extractedChangeUserDescription();
+                case DELETE -> extractedDeleteUserKey();
+                case SHOW -> extractedShow();
+                case EXIT -> exit();
 
-            } else if (action == Enum.Action.CHANGE) {
-                extractedChangeUserDescription();
-
-            } else if (action == Enum.Action.EXIT) {
-                exit();
-            } else if (action == Enum.Action.SHOW) {
-                extractedShow();
-
-            } else {
-                System.out.println("Someone go wrong!");
             }
         }
+    }
+
+
+    public void extractedChangeUserDescription() {
+        extractedShow();
+        int key = userQuestions.userKey("Take someone of the key number too change the task. ");
+        String description = userQuestions.userDescription("What do u want to change? ");
+
+
+        try {
+            taskManager.changeTask(key, description);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        Enum.Action action = userQuestions.userAction("Do u want change Status ?(YES/NO)");
+        if (Objects.requireNonNull(action) == Enum.Action.YES) {
+            extractedChangeStatus(key);
+        }
+    }
+    private void extractedChangeStatus(int key){
+        Enum.Status status = userQuestions.userStatusDescription();
+        taskManager.changeStatus(key,status);
 
     }
 
-public void extractedChangeUserDescription(){
-        extractedShow();
-    int key = userQuestions.userKey("Take someone of the key number too change the task. ");
-        String description = userQuestions.userDescription("What do u want to change? ");
-        try {
-            taskManager.changeTask(key,description);
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
-        }
-}
     public void exit() {
         this.loop = false;
     }
@@ -56,7 +60,7 @@ public void extractedChangeUserDescription(){
 
     private void extractedAddUserDescription() {
 
-String description = userQuestions.userDescription("Description about it. ");
+        String description = userQuestions.userDescription("Description about it. ");
         try {
             taskManager.add(description);
             System.out.println("Task successfully added");

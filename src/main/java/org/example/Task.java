@@ -1,4 +1,5 @@
 package org.example;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,10 +11,10 @@ public class Task {
     private String update;
     private String printout;
 
-    public Task(String description){
+    public Task(String description) {
         this.description = description;
         this.status = Enum.Status.TODO;
-        this.time ="";//Muss noch eine classe angelegt werden.
+        this.time = "";//Muss noch eine classe angelegt werden.
         this.update = "";
     }
 
@@ -37,13 +38,10 @@ public class Task {
         return update;
     }
 
-    public void setUpdate(String update) {
-        this.update = update;
+    public String getPrintout() {
+        return "Description: " + description + ", Status: " + status + ", Create Time: " + time + ", Last change time: " + update;
     }
 
-    public String getPrintout() {
-        return "Description: "+description+", Status: "+status+", Create Time: "+time+", Last change time: "+ update;
-    }
     public String getTime() {
         return time;
     }
@@ -53,7 +51,8 @@ public class Task {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy");
         this.time = nowTime.format(formatter);
     }
-    public void setUpdate(){
+
+    public void setUpdate() {
         LocalDateTime nowTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy");
         this.update = nowTime.format(formatter);
