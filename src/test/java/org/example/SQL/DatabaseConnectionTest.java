@@ -25,4 +25,5 @@ public class DatabaseConnectionTest {
         RuntimeException exception = assertThrows(RuntimeException.class,db::getConnection);
         assertTrue(exception.getMessage().contains("Connection"));
     }
+
 }

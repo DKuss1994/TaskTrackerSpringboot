@@ -8,12 +8,19 @@ import java.sql.SQLException;
 public class JdbcConnectionProvider implements ConnectionProvider {
     @Override
     public Connection getConnection() throws SQLException {
-        String url = System.getenv("DB_URL");
-        String user = System.getenv("DB_USER");
-        String password = System.getenv("DB_PASSWORD");
+        String url = readEnv("DB_URL");
+        String user = readEnv("DB_USER");
+        String password = readEnv("DB_PASSWORD");
         return DriverManager.getConnection(
                 url,
                 user,
                 password);
+    }
+    private String readEnv(String key){
+        String value = System.getenv(key);
+        if(value == null|| value.isEmpty()){
+            throw new IllegalArgumentException("Environment variable is missing" + key);
+        }
+        return value;
     }
 }

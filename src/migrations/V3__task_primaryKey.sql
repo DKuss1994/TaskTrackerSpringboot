@@ -1,0 +1,3 @@
+USE TaskTracker
+ALTER TABLE task
+ADD PRIMARY KEY (taskID);
