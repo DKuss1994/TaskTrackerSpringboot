@@ -1,13 +1,15 @@
 package org.example;
 
+import org.example.Login.PasswordService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class PasswordHashTest {
+    PasswordService passwordService = new PasswordService();
     @Test
     void shouldHashPassword(){
         String password ="hello";
-        String hash = PasswordService.hash(password);
+        String hash = passwordService.hash(password);
 
         Assertions.assertNotNull(hash);
         Assertions.assertFalse(hash.isEmpty());
@@ -16,8 +18,8 @@ public class PasswordHashTest {
     @Test
     void shouldVerifyCorrectPassword(){
         String password = "Hello?";
-        String hash = PasswordService.hash(password);
-        boolean result = PasswordService.verify(password,hash);
+        String hash = passwordService.hash(password);
+        boolean result = passwordService.verify(password,hash);
 
         Assertions.assertTrue(result);
     }
@@ -25,8 +27,8 @@ public class PasswordHashTest {
     void shouldRejectWrongPassword(){
         String password = "Hello?";
         String wrongPassword = "hacker";
-        String hash = PasswordService.hash(password);
-        boolean result = PasswordService.verify(wrongPassword,hash);
+        String hash = passwordService.hash(password);
+        boolean result = passwordService.verify(wrongPassword,hash);
 
         Assertions.assertFalse(result);
     }
