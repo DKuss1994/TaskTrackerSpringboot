@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class SqlUserRepository implements UserRepository {
     private DatabaseConnection databaseConnection;
-    SqlUserRepository(DatabaseConnection databaseConnection){
+    public SqlUserRepository(DatabaseConnection databaseConnection){
         this.databaseConnection = databaseConnection;
     }
     @Override
@@ -19,14 +19,11 @@ public class SqlUserRepository implements UserRepository {
         try {
             Connection connection = databaseConnection.getConnection();
             PreparedStatement stmt =connection.prepareStatement(
-                    "SELECT" +
-                            "*" +
-                            "FROM users" +
-                            "WHERE userName = ?");
+                    "SELECT * FROM users WHERE userName = ?");
             stmt.setString(1,userName);
             ResultSet resultSet = stmt.executeQuery();
             resultSet.next();
-            return new User(resultSet.getInt("id"),resultSet.getString("userName"),resultSet.getString("password"));
+            return new User(resultSet.getInt("userID"),resultSet.getString("userName"),resultSet.getString("password"));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
