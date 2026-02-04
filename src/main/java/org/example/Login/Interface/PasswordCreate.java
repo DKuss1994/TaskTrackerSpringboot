@@ -1,4 +1,4 @@
-package org.example.Login;
+package org.example.Login.Interface;
 
 public interface PasswordCreate {
        String hash(String password);

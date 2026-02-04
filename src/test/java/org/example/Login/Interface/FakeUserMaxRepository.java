@@ -1,6 +1,8 @@
-package org.example.Login;
+package org.example.Login.Interface;
 
-public class fakeUserMaxRepository implements UserRepository {
+import org.example.Login.User;
+
+public class FakeUserMaxRepository implements UserRepository {
 
     @Override
     public User findePasswordUserIDByUserName(String userName) {

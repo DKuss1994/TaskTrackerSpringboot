@@ -1,5 +1,8 @@
 package org.example.Login;
 
+import org.example.Login.Interface.PasswordCreate;
+import org.example.Login.Interface.UserRepository;
+
 public class UserService {
     UserRepository userRepository;
     PasswordCreate passwordService;

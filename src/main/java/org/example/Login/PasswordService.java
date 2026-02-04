@@ -1,5 +1,6 @@
 package org.example.Login;
 
+import org.example.Login.Interface.PasswordCreate;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class PasswordService implements PasswordCreate {

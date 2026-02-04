@@ -1,6 +1,6 @@
-package org.example.Login;
+package org.example.Login.Interface;
 
-public class fakePasswordServiceFalse implements PasswordCreate {
+public class FakePasswordServiceFalse implements PasswordCreate {
 
     @Override
     public String hash(String password) {
