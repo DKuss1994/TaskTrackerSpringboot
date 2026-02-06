@@ -24,8 +24,13 @@ public class SqlUserRepository implements UserRepository {
                     "SELECT * FROM users WHERE userName = ?");
             stmt.setString(1, userName);
             ResultSet resultSet = stmt.executeQuery();
-            resultSet.next();
-            return new User(resultSet.getInt("userID"), resultSet.getString("userName"), resultSet.getString("password"));
+            boolean next = resultSet.next();
+            if(next){
+                return new User(resultSet.getInt("userID"), resultSet.getString("userName"), resultSet.getString("password"));
+            }
+            return null;
+
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -41,7 +46,8 @@ public class SqlUserRepository implements UserRepository {
                     "INSERT INTO users(userName,password) VALUES(?,?)");
             stmt.setString(1, userName);
             stmt.setString(2, hashPassword);
-            stmt.execute();
+            ResultSet resultSet = stmt.executeQuery();
+            resultSet.next();
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
