@@ -44,7 +44,7 @@ public class TaskRepositoryImp implements TaskRepository {
         try {
             Connection connection = databaseConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement
-                    ("INSERT INTO task (status,description,time,updateTime,id) VALUES('?','?''?','?','?')");
+                    ("INSERT INTO task (status,description,time,updateTime,id) VALUES(?,?,?,?,?)");
             statement.setString(1, String.valueOf(task.getStatus()));
             statement.setString(2,task.getDescription());
             statement.setTimestamp(3,task.getTime());
