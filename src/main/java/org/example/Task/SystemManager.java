@@ -3,7 +3,8 @@ import org.example.Enum.Enum;
 import org.example.Login.User;
 import org.example.SQL.JdbcConnectionProvider;
 import org.example.SQL.SqlServerConnection;
-import java.nio.file.Path;
+
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
@@ -65,12 +66,22 @@ public class SystemManager {
     }
 
     private void showTasks() {
-        Map<Integer, Task> allTask = taskManager.getMap();
-        if (allTask.isEmpty()) {
+        List<Task> listTask = taskManager.getAllTask();
+        if (listTask.isEmpty()) {
             throw new IllegalArgumentException("Not task found! Pls add Task.");
         } else {
-            for (int key : allTask.keySet()) {
-                System.out.println("Key: " + key + " Task: " + allTask.get(key).getPrintout());
+            for (Task task : listTask) {
+                System.out.println("Description: "+task.getDescription());
+            }
+        }
+    }
+    private void showTasksStatus(Enum.Status status) {
+        List<Task> listTask = taskManager.getStatusTask(status);
+        if (listTask.isEmpty()) {
+            throw new IllegalArgumentException("Not task found! Pls add Task.");
+        } else {
+            for (Task task : listTask) {
+                System.out.println("Description: "+task.getDescription());
             }
         }
     }
@@ -80,9 +91,7 @@ public class SystemManager {
             org.example.Enum.Enum.Status status = userQuestions.userStatusDescription("What do u want see? Status: (DONE,PROGRESS,TODO) or (ALL) ");
             switch (status) {
                 case ALL -> showTasks();
-                case TODO -> showTODO();
-                case DONE -> showDONE();
-                case PROGRESS -> showPROGRESS();
+                case TODO, PROGRESS, DONE -> showTasksStatus(status);
             }
 
         } catch (Exception e) {

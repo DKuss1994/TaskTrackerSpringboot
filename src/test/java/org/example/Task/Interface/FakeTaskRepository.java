@@ -1,4 +1,5 @@
 package org.example.Task.Interface;
+import org.example.Enum.Enum;
 import org.example.Task.Task;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,4 +18,12 @@ public class FakeTaskRepository implements TaskRepository {
             data.computeIfAbsent(userID, k -> new ArrayList<>()).add(task);
 
     }
+
+    @Override
+    public List<Task> findTasksByStatusAndUserId(int userID, Enum.Status status) {
+        return List.of();
+    }
+
+
+
 }

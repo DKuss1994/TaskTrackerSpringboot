@@ -75,6 +75,9 @@ public class TaskManager {
     public List<Task> getAllTask(){
         return taskRepository.findTasksByUserId(userID);
     }
+    public List<Task> getStatusTask(Enum.Status status){
+        return taskRepository.findTasksByStatusAndUserId(userID, status);
+    }
 
     public int getUserID() {
         return userID;

@@ -3,7 +3,6 @@ package org.example.Task;
 import org.example.Enum.Enum;
 import org.example.Login.User;
 import org.example.Task.Interface.FakeTaskRepository;
-import org.example.Task.Interface.FakeTaskRepositoryMoreTask;
 import org.example.Task.Interface.TaskRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -108,16 +107,20 @@ public class TaskManagerTest {
         User user = new User(1,"Max","123456");
         TaskRepository fakeTask = new FakeTaskRepository();
         TaskManager taskManager1 = new TaskManager(user,fakeTask);
+        taskManager1.add("Cook water");
         List<Task> tasks = taskManager1.getAllTask();
         Assertions.assertNotNull(tasks);
+        System.out.println(tasks.getFirst().getDescription());
         Assertions.assertFalse(tasks.isEmpty());
-        Assertions.assertEquals("Cook water",tasks.get(0).getDescription());
+        Assertions.assertEquals("Cook water",tasks.getFirst().getDescription());
     }
     @Test
     void getAllTaskFromUserIDMoreTask(){
         User user = new User(1,"Max","123456");
-        TaskRepository fakeTask = new FakeTaskRepositoryMoreTask();
+        TaskRepository fakeTask = new FakeTaskRepository();
         TaskManager taskManager1 = new TaskManager(user,fakeTask);
+        taskManager1.add("Cook water");
+        taskManager1.add("Cook milk");
         List<Task> tasks = taskManager1.getAllTask();
         Assertions.assertNotNull(tasks);
         Assertions.assertFalse(tasks.isEmpty());
@@ -133,6 +136,19 @@ public class TaskManagerTest {
         Assertions.assertEquals(1,fakeTaskRepository.findTasksByUserId(1).size());
         Assertions.assertEquals("Buy milk",fakeTaskRepository.findTasksByUserId(1).getFirst().getDescription());
 
+    }
+
+    @Test
+    void getAllTaskStatusTODOFromUserID(){
+        User user = new User(1,"Max","123456");
+        TaskRepository fakeTask = new FakeTaskRepository();
+        TaskManager taskManager1 = new TaskManager(user,fakeTask);
+        taskManager1.add("Cook water");
+        List<Task> tasks = taskManager1.getAllTask();
+        Assertions.assertNotNull(tasks);
+        System.out.println(tasks.getFirst().getDescription());
+        Assertions.assertFalse(tasks.isEmpty());
+        Assertions.assertEquals(Enum.Status.TODO,tasks.getFirst().getStatus());
     }
 
 
