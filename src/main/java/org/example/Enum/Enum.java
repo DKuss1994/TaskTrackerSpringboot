@@ -24,4 +24,8 @@ public class Enum {
 
 
     }
+    public static Status fromDb(String value) {
+        return Status.valueOf(value.toUpperCase());
+    }
+
 }

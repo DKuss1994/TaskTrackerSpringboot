@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TaskRepository {
     List<Task> findTasksByUserId(int userID);
+    void addTaskByUserId(int userID);
 }

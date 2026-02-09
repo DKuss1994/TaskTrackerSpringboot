@@ -2,21 +2,16 @@ package org.example.Task;
 
 import org.example.Enum.Enum;
 import org.example.SQL.Interface.DatabaseConnection;
-import org.example.SQL.SqlServerConnection;
 import org.example.Task.Interface.TaskRepository;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskService implements TaskRepository {
+public class TaskRepositoryImp implements TaskRepository {
     DatabaseConnection databaseConnection;
-    StringBuilder st = new StringBuilder();
 
-    public TaskService(DatabaseConnection databaseConnection) {
+    public TaskRepositoryImp(DatabaseConnection databaseConnection) {
         this.databaseConnection = databaseConnection;
     }
 
@@ -26,15 +21,15 @@ public class TaskService implements TaskRepository {
         try {
             Connection connection = databaseConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement
-                    ("SELECT description FROM task WHERE id = ?");
+                    ("SELECT * FROM task WHERE id = ?");
             statement.setInt(1, userID);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 String description1 = resultSet.getString("description");
                 String status = resultSet.getString("status");
-                Enum.Status statusEnum = Enum.Status.valueOf(status);
-                String time = resultSet.getString("time");
-                String updateTime = resultSet.getString("updateTime");
+                Enum.Status statusEnum = Enum.fromDb(status);
+                Timestamp time = resultSet.getTimestamp("time");
+                Timestamp updateTime = resultSet.getTimestamp("updateTime");
                 Task description = new Task(description1,statusEnum,time,updateTime);
                 tasks.add(description);
             }
@@ -42,5 +37,10 @@ public class TaskService implements TaskRepository {
             throw new RuntimeException(e);
         }
         return tasks;
+    }
+
+    @Override
+    public void addTaskByUserId(int userID) {
+
     }
 }

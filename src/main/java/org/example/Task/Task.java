@@ -1,18 +1,18 @@
 package org.example.Task;
 
 import org.example.Enum.Enum;
-import org.json.JSONObject;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Task {
     private String description;
     private org.example.Enum.Enum.Status status;
-    private String time;
-    private String update;
+    private Timestamp time;
+    private Timestamp update;
 
-    public Task(String description, org.example.Enum.Enum.Status status, String time, String update) {
+    public Task(String description, Enum.Status status, Timestamp time, Timestamp update) {
         this.description = description;
         this.status = status;
         this.time = time;
@@ -22,8 +22,8 @@ public class Task {
     public Task(String description) {
         this.description = description;
         this.status = org.example.Enum.Enum.Status.TODO;
-        this.time = "";
-        this.update = "";
+        this.time = Timestamp.valueOf("");
+        this.update = Timestamp.valueOf("");
     }
 
     public String getDescription() {
@@ -49,29 +49,13 @@ public class Task {
     public void setTime() {
         LocalDateTime nowTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy");
-        this.time = nowTime.format(formatter);
+        this.time = Timestamp.valueOf(nowTime.format(formatter));
     }
 
     public void setUpdate() {
         LocalDateTime nowTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd.MM.yyyy");
-        this.update = nowTime.format(formatter);
+        this.update = Timestamp.valueOf(nowTime.format(formatter));
     }
 
-    public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("description", description);
-        json.put("status", status.name());
-        json.put("time", time);
-        json.put("update", update);
-        return json;
-    }
-
-    public static Task fromJson(JSONObject json) {
-        return new Task(
-                json.getString("description"),
-                Enum.Status.valueOf(json.getString("status")),
-                json.getString("time"),
-                json.getString("update"));
-    }
 }
