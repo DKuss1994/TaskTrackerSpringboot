@@ -87,10 +87,20 @@ public class TaskRepositoryImp implements TaskRepository {
 
     @Override
     public void changeStatusByUserIDAndTaskID(int userID, int taskID, Enum.Status status, Timestamp update) {
-
+        try {
+            Connection connection = databaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement
+                    ("UPDATE task SET status = ?,updateTime = ? WHERE id = ? AND taskID = ?");
+            statement.setString(1, String.valueOf(status));
+            statement.setTimestamp(2,update);
+            statement.setInt(3,userID);
+            statement.setInt(4,taskID);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
-    @Override
+        @Override
     public void changeTaskByUserIDAndTaskID(int userID, int taskID, String description, Timestamp update) {
         try {
             Connection connection = databaseConnection.getConnection();

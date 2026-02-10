@@ -69,9 +69,17 @@ public class TaskManager {
 
 
         task.setDescription(description);
-        task.setUpdate();
     }
     public void changeStatus(int userID, int taskID, Enum.Status status){
+        Task task = taskRepository.findeTaskByUserIDAndTaskID(userID,taskID);
+        if(task == null){
+            throw new IllegalArgumentException("Task not Found");
+        }
+        if(status == null){
+            throw new IllegalArgumentException("Status invalide");
+        }
+        task.setUpdate();
+        taskRepository.changeStatusByUserIDAndTaskID(userID,taskID,status,task.getUpdate());
 
     }
 
