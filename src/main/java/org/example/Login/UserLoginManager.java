@@ -24,36 +24,37 @@ public class UserLoginManager {
 
     public void start() {
         UserLoginManager userLoginManager = new UserLoginManager();
-        Enum.Action action = userLoginManager.loginOrRegistrierung();
-        while (true){
-        switch (action) {
-            case LOGIN -> {
-                User user = userLoginManager.login();
-                if (user!=null) {
-                    SystemManager systemManager = new SystemManager(user);
-                    systemManager.start();
+        while (true) {
+            Enum.Action action = userLoginManager.loginOrRegistrierung();
+            switch (action) {
+                case LOGIN -> {
+                    User user = login();
+                    if (user != null) {
+                        SystemManager systemManager = new SystemManager(user);
+                        systemManager.start();
+
+                    }
+                }
+                case REGISTRATION -> {
+                    userLoginManager.registrierung();
 
                 }
+                case EXIT -> {
+                    System.out.println("Bye 👋");
+                    return;
+                }
             }
-            case REGISTRATION -> {
-                userLoginManager.registrierung();
-            }
-            case EXIT -> System.exit(0);
-        }}
+        }
 
 
     }
 
     public void registrierung() {
-        String userName = userService.userNameRegistrierung(userQuestions,sqlUserRepository);
+        String userName = userService.userNameRegistrierung(userQuestions, sqlUserRepository);
         String password = userService.passwordRegistrierung(userQuestions);
         String hash = passwordService.hash(password);
-        sqlUserRepository.createANewUserWithHashPassword(userName,hash);
-
+        sqlUserRepository.createANewUserWithHashPassword(userName, hash);
     }
-
-
-
 
 
     public User login() {

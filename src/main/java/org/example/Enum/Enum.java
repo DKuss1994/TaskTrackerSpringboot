@@ -15,6 +15,7 @@ public class Enum {
         ADD,
         DELETE,
         CHANGE,
+        CHANGE_STATUS,
         EXIT,
         SHOW,
         YES,

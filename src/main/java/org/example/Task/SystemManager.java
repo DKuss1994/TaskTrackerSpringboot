@@ -23,7 +23,7 @@ public class SystemManager {
 
     public void start() {
         while (loop) {
-            org.example.Enum.Enum.Action action = userQuestions.userAction("What do u want? (ADD,DELETE,SEARCH,CHANGE,INFO,SHOW,EXIT) ");
+            org.example.Enum.Enum.Action action = userQuestions.userAction("What do u want? (ADD,DELETE,CHANGE,SHOW,EXIT) ");
             switch (action) {
                 case ADD -> extractedAddUserDescription();
                 case CHANGE -> extractedChangeUserDescription();
@@ -38,34 +38,30 @@ public class SystemManager {
 
     public void extractedChangeUserDescription() {
         extractedShow();
-        int taskID = userQuestions.userKey("We need the taskID. ");
-        String description = userQuestions.userDescription("Your new Description. ");
         int userID = taskManager.getUserID();
+        int taskID = userQuestions.userKey("We need the taskID. ");
+        Enum.Action yesOrNo = userQuestions.userAction("Change Description? (YES/NO)");
+        if(yesOrNo == Enum.Action.YES){
+            String description = userQuestions.userDescription("Your new Description. ");
 
-
-        try {
-
-            taskManager.changeTask(userID,taskID,description);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            try {
+                taskManager.changeTask(userID,taskID,description);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         }
         org.example.Enum.Enum.Action action = userQuestions.userAction("Do u want change Status ?(YES/NO)");
         if (Objects.requireNonNull(action) == org.example.Enum.Enum.Action.YES) {
             extractedChangeStatus(userID,taskID);
         }
     }
-
-
     private void extractedChangeStatus(int userID, int taskID) {
         org.example.Enum.Enum.Status status = userQuestions.userStatusDescription("Description about Status.(DONE,PROGRESS,TODO) ");
         taskManager.changeStatus(userID, taskID, status);
-
     }
-
     public void exit() {
         this.loop = false;
     }
-
     private void showTasks() {
         List<Task> listTask = taskManager.getAllTask();
         if (listTask.isEmpty()) {
@@ -99,8 +95,6 @@ public class SystemManager {
             System.out.println(e.getMessage());
         }
     }
-
-
     private void extractedAddUserDescription() {
 
         String description = userQuestions.userDescription("Description about it. ");
@@ -111,7 +105,6 @@ public class SystemManager {
             System.out.println(e.getMessage());
         }
     }
-
     private void extractedDeleteUserKey() {
         try {
             showTasks();
@@ -123,11 +116,9 @@ public class SystemManager {
         }
         System.out.println("Number not found. Try again.");
     }
-
     public User getUser() {
         return user;
     }
-
     public void setUser(User user) {
         this.user = user;
     }

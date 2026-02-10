@@ -92,25 +92,26 @@ public class TaskRepositoryImp implements TaskRepository {
             PreparedStatement statement = connection.prepareStatement
                     ("UPDATE task SET status = ?,updateTime = ? WHERE id = ? AND taskID = ?");
             statement.setString(1, String.valueOf(status));
-            statement.setTimestamp(2,update);
-            statement.setInt(3,userID);
-            statement.setInt(4,taskID);
+            statement.setTimestamp(2, update);
+            statement.setInt(3, userID);
+            statement.setInt(4, taskID);
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-        @Override
+
+    @Override
     public void changeTaskByUserIDAndTaskID(int userID, int taskID, String description, Timestamp update) {
         try {
             Connection connection = databaseConnection.getConnection();
             PreparedStatement statement = connection.prepareStatement
                     ("UPDATE task SET description = ?,updateTime = ? WHERE id = ? AND taskID = ?");
-            statement.setString(1,description);
-            statement.setTimestamp(2,update);
-            statement.setInt(3,userID);
-            statement.setInt(4,taskID);
-statement.executeUpdate();
+            statement.setString(1, description);
+            statement.setTimestamp(2, update);
+            statement.setInt(3, userID);
+            statement.setInt(4, taskID);
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -125,7 +126,7 @@ statement.executeUpdate();
             statement.setInt(1, taskID);
             statement.setInt(2, userID);
             ResultSet resultSet = statement.executeQuery();
-            if(resultSet.next()) {
+            if (resultSet.next()) {
 
                 String description1 = resultSet.getString("description");
                 String statusDB = resultSet.getString("status");
@@ -134,8 +135,7 @@ statement.executeUpdate();
                 Timestamp updateTime = resultSet.getTimestamp("updateTime");
                 int taskID1 = resultSet.getInt("taskID");
                 return new Task(description1, statusEnum, time, updateTime, taskID1);
-            }
-            else {
+            } else {
                 return null;
             }
         } catch (SQLException e) {
@@ -145,7 +145,17 @@ statement.executeUpdate();
 
     @Override
     public void deleteTaskByUserIDAndTaskID(int userID, int taskID) {
+        try {
+            Connection connection = databaseConnection.getConnection();
+            PreparedStatement statement = connection.prepareStatement
+                    ("DELETE FROM task WHERE id = ? AND taskID = ?");
+            statement.setInt(1,userID);
+            statement.setInt(2,taskID);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
-
 }

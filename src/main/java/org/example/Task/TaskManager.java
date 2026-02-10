@@ -5,11 +5,8 @@ import org.example.Login.User;
 import org.example.Task.Interface.TaskRepository;
 
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class TaskManager {
-    private final TreeMap<Integer, Task> taskMap = new TreeMap<>();
     private int userID;
     private TaskRepository taskRepository;
     public TaskManager(User user,TaskRepository taskRepository){
@@ -19,19 +16,6 @@ public class TaskManager {
 
     public TaskManager() {
 
-    }
-
-    public Map<Integer,Task> getMap(){
-        return this.taskMap;
-    }
-    public int mapSize(){
-        return taskMap.size();
-    }
-    public Task getTask(int key){
-        return taskMap.get(key);
-    }
-    public boolean containsKey (int key){
-        return taskMap.containsKey(key);
     }
 
     public void add(String description) {
