@@ -149,6 +149,18 @@ public class TaskManagerTest {
         Assertions.assertFalse(allTask.isEmpty());
         Assertions.assertEquals("Cook milk",fakeTask.findTasksByUserId(1).getFirst().getDescription());
     }
+    @Test
+    void changeStatusTest(){
+        User user = new User(1,"Max","123456");
+        TaskRepository fakeTask = new FakeTaskRepository();
+        TaskManager taskManager1 = new TaskManager(user,fakeTask);
+        taskManager1.add("Cook Water");
+        Enum.Status done = Enum.Status.DONE;
+        taskManager1.changeStatus(user.getId(),1,done);
+        List<Task> allTask = taskManager1.getAllTask();
+        Assertions.assertFalse(allTask.isEmpty());
+        Assertions.assertEquals(done,fakeTask.findTasksByUserId(1).getFirst().getStatus());
+    }
 
 
 }

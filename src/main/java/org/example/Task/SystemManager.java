@@ -5,7 +5,6 @@ import org.example.SQL.JdbcConnectionProvider;
 import org.example.SQL.SqlServerConnection;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -41,24 +40,25 @@ public class SystemManager {
         extractedShow();
         int taskID = userQuestions.userKey("We need the taskID. ");
         String description = userQuestions.userDescription("Your new Description. ");
+        int userID = taskManager.getUserID();
 
 
         try {
 
-            taskManager.changeTask(taskManager.getUserID(),taskID,description);
+            taskManager.changeTask(userID,taskID,description);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         org.example.Enum.Enum.Action action = userQuestions.userAction("Do u want change Status ?(YES/NO)");
         if (Objects.requireNonNull(action) == org.example.Enum.Enum.Action.YES) {
-            extractedChangeStatus(taskID);
+            extractedChangeStatus(userID,taskID);
         }
     }
 
 
-    private void extractedChangeStatus(int key) {
+    private void extractedChangeStatus(int userID, int taskID) {
         org.example.Enum.Enum.Status status = userQuestions.userStatusDescription("Description about Status.(DONE,PROGRESS,TODO) ");
-        taskManager.changeStatus(key, status);
+        taskManager.changeStatus(userID, taskID, status);
 
     }
 
@@ -100,47 +100,6 @@ public class SystemManager {
         }
     }
 
-    private void showTODO() {
-        Map<Integer, Task> allTask = taskManager.getMap();
-        if (allTask.isEmpty()) {
-            throw new IllegalArgumentException("Not task found! Pls add Task.");
-        } else {
-            for (int key : allTask.keySet()) {
-                if (taskManager.getTask(key).getStatus() == org.example.Enum.Enum.Status.TODO) {
-                    System.out.println("Key: " + key + " Task: " + allTask.get(key).getPrintout());
-                }
-            }
-        }
-
-    }
-
-    private void showDONE() {
-        Map<Integer, Task> allTask = taskManager.getMap();
-        if (allTask.isEmpty()) {
-            throw new IllegalArgumentException("Not task found! Pls add Task.");
-        } else {
-            for (int key : allTask.keySet()) {
-                if (taskManager.getTask(key).getStatus() == org.example.Enum.Enum.Status.DONE) {
-                    System.out.println("Key: " + key + " Task: " + allTask.get(key).getPrintout());
-                }
-            }
-        }
-
-    }
-
-    private void showPROGRESS() {
-        Map<Integer, Task> allTask = taskManager.getMap();
-        if (allTask.isEmpty()) {
-            throw new IllegalArgumentException("Not task found! Pls add Task.");
-        } else {
-            for (int key : allTask.keySet()) {
-                if (taskManager.getTask(key).getStatus() == Enum.Status.PROGRESS) {
-                    System.out.println("Key: " + key + " Task: " + allTask.get(key).getPrintout());
-                }
-            }
-        }
-
-    }
 
     private void extractedAddUserDescription() {
 

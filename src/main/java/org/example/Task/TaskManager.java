@@ -71,9 +71,7 @@ public class TaskManager {
         task.setDescription(description);
         task.setUpdate();
     }
-    public void changeStatus(int key, Enum.Status status){
-        taskMap.get(key).setStatus(status);
-        taskMap.get(key).setUpdate();
+    public void changeStatus(int userID, int taskID, Enum.Status status){
 
     }
 

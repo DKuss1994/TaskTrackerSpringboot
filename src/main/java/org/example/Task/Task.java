@@ -48,7 +48,7 @@ public class Task {
     }
 
     public String getPrintout() {
-        return "TaskID: "+taskID+"Description: " + description + ", Status: " + status + ", Create Time: " + time + ", Last change time: " + update;
+        return "TaskID: "+taskID+", Description: " + description + ", Status: " + status + ", Create Time: " + time + ", Last change time: " + update;
     }
 
     public void setTime() {
